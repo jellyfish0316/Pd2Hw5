@@ -69,7 +69,8 @@ void ProblemSystem::newproblem_set(std::string PROBLEM_DATA_PATH) {
     std::cin >> magic_num;
 
     std::cout << "Final! please input the problem name: ";
-    std::cin >> title;
+    std::getline(std::cin, title);
+    std::getline(std::cin, title);
     std::cout << "OK! your problem name(title) is " << title << std::endl;
 
     Problem new_problem(title, input_path, output_path, stoi(magic_num));

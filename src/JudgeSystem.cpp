@@ -113,6 +113,10 @@ int JudgeSystem::mainPage() {
             }
             return 0;
         }
+        if(op == 4){
+            ProblemSystem::rand_problems();
+            return 0;
+        }
         if(op == 5){
             ProblemSystem::submit_code();
             return 0;

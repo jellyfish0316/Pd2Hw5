@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include "WheelSpinner.h"
 
 class Problem {
     protected:
@@ -25,6 +26,7 @@ class ProblemSystem : public Problem {
         std::vector<Problem>* list_problem();
         void newproblem_set(std::string PROBLEM_DATA_PATH);
         void submit_code();
+        void rand_problems();
 };
 
 bool compare_files(FILE* f1, const char* filepath);

@@ -94,14 +94,14 @@ void ProblemSystem::newproblem_set(std::string PROBLEM_DATA_PATH) {
 }
 
 void ProblemSystem::submit_code(){
-    std::vector<Problem>* plist = ProblemSystem::list_problem();
+    vector<Problem> plist = this->problem_list;
     char id;
     Problem p;
     std::string code_name;
 
     std::cout << "Please input the problem ID: ";
     std::cin >> id;
-    p = (*plist)[(int)id - 65];
+    p = plist[(int)id - 65];
 
     std::cout << "Please input your code name: ";
     std::cin >> code_name;
@@ -150,4 +150,19 @@ bool compare_files(FILE* f1, const char* filepath) {
     bool f2_end = feof(f2);
     fclose(f2);
     return f1_end && f2_end;
+}
+
+void ProblemSystem::rand_problems(){
+    srand(time(0));
+    vector<Problem> plist = this->problem_list;
+    vector<string> pstrlist;
+    for(int i = 0; i < plist.size(); i++){
+        pstrlist.push_back(plist[i].getTitle());
+    }
+
+    int result = spin_wheel(pstrlist);
+
+    cout << magenta("Congrats! you just won problem ") << pstrlist[result] << magenta(" as a prize!") << endl; 
+
+
 }

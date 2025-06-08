@@ -153,17 +153,39 @@ bool compare_files(FILE* f1, const char* filepath) {
     return f1_end && f2_end;
 }
 
+string get_timestamp_ms() {
+    using namespace chrono;
+    auto now = system_clock::now();
+    auto ms = duration_cast<milliseconds>(now.time_since_epoch()).count();
+    return to_string(ms); 
+}
+
+
 void ProblemSystem::rand_problems(){
-    srand(time(0));
     vector<Problem> plist = this->problem_list;
     vector<string> pstrlist;
-    for(int i = 0; i < plist.size(); i++){
-        pstrlist.push_back(plist[i].getTitle());
+    for (const auto& prob : plist) {
+        pstrlist.push_back(prob.getTitle());
     }
+    
+    // 使用生日 + 日期為種子
+    string birthday;
+    cout << "請輸入你的生日（格式 YYYYMMDD）：";
+    getline(cin, birthday);
+    string timestamp = get_timestamp_ms();
 
-    int result = spin_wheel(pstrlist);
+    // 結合生日與時間戳
+    string seed_str = birthday + timestamp;
+    size_t seed = hash<string>{}(seed_str);  // 安全且隨機
 
-    cout << magenta("Congrats! you just won problem ") << pstrlist[result] << magenta(" as a prize!") << endl; 
+    // 使用 mt19937 初始化
+    mt19937 rng(seed);
+    
+    cout << "按 Enter 開始轉盤...";
+    cin.get();
 
-
+    int result = spin_wheel(pstrlist, rng);
+    
+    cout << magenta("Congrats! you just won problem ") << pstrlist[result] << magenta(" as a prize!") << endl;
+    
 }

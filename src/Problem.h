@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <string.h>
 #include "WheelSpinner.h"
 
 class Problem {
@@ -30,3 +31,4 @@ class ProblemSystem : public Problem {
 };
 
 bool compare_files(FILE* f1, const char* filepath);
+string get_timestamp_ms();

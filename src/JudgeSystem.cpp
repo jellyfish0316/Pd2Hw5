@@ -138,6 +138,6 @@ int JudgeSystem::mainPage() {
     clearWindow();
 
 
-    
+    return 0;
 
 }
